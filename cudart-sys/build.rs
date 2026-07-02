@@ -17,8 +17,8 @@ pub fn assert_cuda_version() {
         |s| s.to_string(),
     );
     assert!(
-        version.starts_with("12."),
-        "CUDA Toolkit {version} is not supported. Please install CUDA Toolkit 12.x"
+        version.starts_with("12.") || version.starts_with("13."),
+        "CUDA Toolkit {version} is not supported. Please install CUDA Toolkit 12.x or 13.x"
     );
 }
 
