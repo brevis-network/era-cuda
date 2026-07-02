@@ -170,7 +170,8 @@ impl CudaOwnedMemPool {
             handleTypes: CudaMemAllocationHandleType::None,
             location: CudaMemLocation {
                 type_: CudaMemLocationType::Device,
-                id: device_id,
+                // CUDA 13: `id` moved into an anonymous union (`__bindgen_anon_1`)
+                __bindgen_anon_1: cudaMemLocation__bindgen_ty_1 { id: device_id },
             },
             ..Default::default()
         };

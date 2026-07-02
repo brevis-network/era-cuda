@@ -135,7 +135,7 @@ fn main() {
         .allowlist_function("cudaDeviceSynchronize")
         .allowlist_function("cudaGetDevice")
         .allowlist_function("cudaGetDeviceCount")
-        .allowlist_function("cudaGetDeviceProperties_v2")
+        .allowlist_function("cudaGetDeviceProperties")
         .allowlist_function("cudaSetDevice")
         // error handling
         // https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__ERROR.html
