@@ -9,5 +9,8 @@ cudart-sys = { path = "../cudart-sys" }
 bitflags = "2.5"
 paste = "1.0"
 
+[build-dependencies]
+serde_json = "1.0"
+
 [dev-dependencies]
 serial_test = "3.1"

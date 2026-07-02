@@ -13,6 +13,23 @@ use crate::result::{CudaResult, CudaResultWrap};
 use crate::slice::{AllocationData, CudaSlice, CudaSliceMut, DeviceSlice};
 use crate::stream::CudaStream;
 
+// CUDA 13 wraps `cudaMemLocation.id` in an anonymous union (`__bindgen_anon_1`);
+// CUDA 12 keeps it a flat `id` field. Build the version-appropriate value.
+#[cfg(cuda_13)]
+#[inline]
+fn make_mem_location(type_: CudaMemLocationType, id: i32) -> CudaMemLocation {
+    CudaMemLocation {
+        type_,
+        __bindgen_anon_1: cudaMemLocation__bindgen_ty_1 { id },
+    }
+}
+
+#[cfg(not(cuda_13))]
+#[inline]
+fn make_mem_location(type_: CudaMemLocationType, id: i32) -> CudaMemLocation {
+    CudaMemLocation { type_, id }
+}
+
 #[repr(i32)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum CudaMemPoolAttributeI32 {
@@ -168,11 +185,7 @@ impl CudaOwnedMemPool {
         let props = CudaMemPoolProperties {
             allocType: CudaMemAllocationType::Pinned,
             handleTypes: CudaMemAllocationHandleType::None,
-            location: CudaMemLocation {
-                type_: CudaMemLocationType::Device,
-                // CUDA 13: `id` moved into an anonymous union (`__bindgen_anon_1`)
-                __bindgen_anon_1: cudaMemLocation__bindgen_ty_1 { id: device_id },
-            },
+            location: make_mem_location(CudaMemLocationType::Device, device_id),
             ..Default::default()
         };
         Self::create(&props)

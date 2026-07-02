@@ -135,7 +135,10 @@ fn main() {
         .allowlist_function("cudaDeviceSynchronize")
         .allowlist_function("cudaGetDevice")
         .allowlist_function("cudaGetDeviceCount")
+        // CUDA 13 dropped the `_v2` suffix; CUDA 12 only has `_v2`. Allowlist both —
+        // bindgen emits whichever the installed toolkit actually declares.
         .allowlist_function("cudaGetDeviceProperties")
+        .allowlist_function("cudaGetDeviceProperties_v2")
         .allowlist_function("cudaSetDevice")
         // error handling
         // https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__ERROR.html
