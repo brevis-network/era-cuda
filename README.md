@@ -1,3 +1,8 @@
+> **Fork note.** This is Brevis's fork of [matter-labs/era-cuda](https://github.com/matter-labs/era-cuda),
+> which is archived. The `pico` branch adds CUDA 13 support and is what
+> [Pico](https://github.com/brevis-network/pico)'s GPU prover builds against; the other branches
+> are unchanged from upstream.
+
 # zkSync Era: A ZK Rollup For Scaling Ethereum
 
 [![Logo](eraLogo.png)](https://zksync.io/)
@@ -12,7 +17,7 @@ write smart contracts in C++, Rust and other popular languages.
 Era-CUDA repository is a collection of rust crates that implement bindings, wrappers and helpers for the CUDA Runtime API.
 
 Prerequisites: 
-- CUDA 12.x
+- CUDA 12.x or 13.x
 - clang
 - rust nightly toolchain
 
